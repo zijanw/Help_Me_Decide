@@ -1,4 +1,4 @@
-import PySimpleGUI as sg    # to open a new window
+import PySimpleGUI as gui   # to open a new window
 import os.path              # python's os module
 import random               # random number generator
 
@@ -8,9 +8,8 @@ class Main_menu:
 
     # main
     def main_main_menu():
-        run = 1
         # run forever until user quits
-        while run == 1:
+        while True:
             Main_menu.print_menu()
             selection = Main_menu.get_menu_selection()
             Main_menu.exec_menu(selection)
@@ -49,8 +48,18 @@ class Main_menu:
     # randomize from pool
     def get_random_from_saved():
         saved = ["Thai Kitchen", "Taste Place"]
-        print(random.choice(saved))
+        print("\nThe decision is......\n" + 
+            random.choice(saved) + "!!!\n")
 
 ############################### main menu
-Main_menu.main_main_menu()
+layout = [[gui.Text(Main_menu.print_menu())], [gui.Button("OK")]]
+window = gui.Window("Help-Me-Decide!", layout, margins = (250, 100))
 
+while True:
+    event, values = window.read()
+    #Main_menu.main_main_menu()
+
+    if event == "OK" or event == gui.WIN_CLOSED:
+        break
+
+window.close()
